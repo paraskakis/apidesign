@@ -41,7 +41,7 @@ Use UUIDs throughout for all resource identifiers.
 2. Include examples for all parameters, including those in components
 
 ### Status Codes:
-1. Use status codes 200, 201, and 204 appropriately for successful responses.
+1. Use status codes 200, 201, 202 and 204 appropriately for successful responses.
 2. Include a 404 status code for resources not found.
 3. Include a 401 status code for endpoints requiring authentication.
 4. Use 500 status codes for server errors.
