@@ -69,6 +69,7 @@ Use UUIDs throughout for all resource identifiers.
 9. Each operation must include a summary
 10. A servers object must be present with a non=empty array
 11. Each operation must have an operationId
+12. The Contact object must have "name", "url" and "email"
 
 ### Fallback Clause:
 If any of the above standards conflict or are partially ignored by the output, default to the most secure and standards-compliant option, and note any deviations in comments.
