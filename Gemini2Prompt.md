@@ -49,7 +49,7 @@ Use UUIDs throughout for all resource identifiers.
 
 ### Errors:
 1. Document all possible error conditions.
-2. Use the Problem JSON format to describe error responses.
+2. Use the Problem Details format to describe error responses as described in [RFC 9457](https://www.rfc-editor.org/rfc/rfc9457.html).
 
 ### Rate Limiting:
 1. Include standard Rate Limiting Headers for successful (2XX) responses, such as X-RateLimit-Limit, X-RateLimit-Remaining, and Retry-After.
