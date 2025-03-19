@@ -64,9 +64,10 @@ Use UUIDs throughout for all resource identifiers.
 6. Do not use duplicate keys in the JSON output. For example, ensure you do not use the type keyword twice within a property definition.
 7. Don’t use nullable, use "type": ["string", "null"] if you need to define a property that can be either a string or null. Specifically, use "type": ["string", "null"] and avoid using type twice for properties that can be a string or null.
 8. The Info object must include:
-   * A non-empty “contact” object.
-   * A “license” object that contains a “url” field.
+- A non-empty “contact” object.
+- A “license” object that contains a “url” field.
 9. Each operation must include a summary
+10. A servers object must be present with a non=empty array
 
 ### Fallback Clause:
 If any of the above standards conflict or are partially ignored by the output, default to the most secure and standards-compliant option, and note any deviations in comments.
