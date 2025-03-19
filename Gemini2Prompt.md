@@ -52,8 +52,8 @@ Use UUIDs throughout for all resource identifiers.
 2. Use the Problem Details format to describe error responses as described in [RFC 9457](https://www.rfc-editor.org/rfc/rfc9457.html).
 
 ### Rate Limiting:
-1. Include standard Rate Limiting Headers for successful (2XX) responses, such as X-RateLimit-Limit, X-RateLimit-Remaining, and Retry-After.
-2. Also include standard Rate Limiting Headers for 4XX responses.
+1. Include standard Rate Limiting Headers for successful (200, 201, 202, 204) responses, such as X-RateLimit-Limit, X-RateLimit-Remaining, and Retry-After.
+2. Also include standard Rate Limiting Headers for 400, 401, 403, 404 and other 4XX responses.
 
 ### Format:
 1. You must include a description key for every endpoint, operation, response, parameter, schema, and anything else that applies, including what’s inside components.
