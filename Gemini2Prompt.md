@@ -66,6 +66,7 @@ Use UUIDs throughout for all resource identifiers.
 8. The Info object must include:
    * A non-empty “contact” object.
    * A “license” object that contains a “url” field.
+9. Each operation must include a summary
 
 ### Fallback Clause:
 If any of the above standards conflict or are partially ignored by the output, default to the most secure and standards-compliant option, and note any deviations in comments.
