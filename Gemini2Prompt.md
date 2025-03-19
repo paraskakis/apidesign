@@ -68,6 +68,7 @@ Use UUIDs throughout for all resource identifiers.
 - A “license” object that contains a “url” field.
 9. Each operation must include a summary
 10. A servers object must be present with a non=empty array
+11. Each operation must have an operationId
 
 ### Fallback Clause:
 If any of the above standards conflict or are partially ignored by the output, default to the most secure and standards-compliant option, and note any deviations in comments.
