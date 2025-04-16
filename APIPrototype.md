@@ -2,7 +2,7 @@
 
 Gemini 2.5 Pro (experimental) https://gemini.google.com/
 
-Prompt https://github.com/paraskakis/apidesign/
+Prompt https://github.com/paraskakis/apidesign/blob/main/Gemini2Prompt.md
 
 Scalar Editor http://editor.scalar.com/
 
