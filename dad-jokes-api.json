@@ -415,7 +415,7 @@
           },
           "instance": {
             "type": "string",
-            "format": "uri",
+            "format": "uri-relative",
             "description": "A URI reference that identifies the specific occurrence of the problem. It may or may not yield further information if dereferenced.",
             "example": "/jokes/f8a3b8f0-9f9f-4b1a-9e6e-e7c8a7b6e5c5"
           }
