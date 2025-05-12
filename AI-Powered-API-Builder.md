@@ -40,3 +40,5 @@ A generated OpenAPI file, in case you run into any trouble: https://github.com/p
 
 A quick test sequence: https://github.com/paraskakis/apidesign/blob/main/TestSequence.md
 
+API Product Mastery for Experienced PMs course with 20% discount: https://tinyurl.com/apipmapidays
+
