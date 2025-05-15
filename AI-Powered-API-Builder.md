@@ -42,3 +42,5 @@ A quick test sequence: https://github.com/paraskakis/apidesign/blob/main/TestSeq
 
 API Product Mastery for Experienced PMs course with 20% discount: https://tinyurl.com/apipmapidays
 
+Talk Slides: https://speakerdeck.com/paraskakis/the-ai-powered-api-builder-speeding-up-api-delivery-with-ai-tools
+
