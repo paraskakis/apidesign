@@ -6,23 +6,23 @@
 
 3. Copy the generated OpenAPI file and paste into Scalar Editor to check for issues. Save it to a JSON file: https://editor.scalar.com/
 
-4. Upload the file into Rate My OpenAPI. You can improve the score taking the eimailed feedback and pasting back into Gemini: https://ratemyopenapi.com/
+4. Upload the file into Rate My OpenAPI. You can improve the score taking the emailed feedback and pasting back into Gemini: https://ratemyopenapi.com/
 
-5. Get a second opinion OpenAPI Doctor https://pb33f.io/doctor
+5. Get a second opinion from the OpenAPI Doctor: https://pb33f.io/doctor
 
-6. Once you get good results, uload the OpenAPI file into Mockbin to generate a prototype: https://mockbin.io/
+6. Once you get good results, upload the OpenAPI file into Mockbin to generate a prototype: https://mockbin.io/
 
 7. Use HTTPie for testing: https://httpie.io/app
 
 8. Sign up for Replit and upload the OpenAPI file: https://replit.com/
 
-9. Open and paste the following prompt https://github.com/paraskakis/apidesign/blob/main/ReplitCode.md
+9. Use this prompt in Replit: https://github.com/paraskakis/apidesign/blob/main/ReplitCode.md
 
-10. Hit `Start Building` and review the plan by Replit Agent. Go simnple to start with and do not select persistence, logging or any other proposed additions.
+10. Hit `Start Building` and review the plan by Replit Agent. Go simnple to start with, and do not select persistence, logging or any other proposed additions.
 
-11. Use the green link in the Preview pane link to test the generated API with HTTPie. Ask Replit for a demo API Key if it hasn;t offered it yet. Feed any errors or suggestions back to Replit Agent and let it correct them. If you get stuck go backa checkpoint, or start from scratch.
+11. Use the green link in the Preview pane link to test the generated API with HTTPie. Ask Replit for a demo API Key if it hasn't offered it yet. Feed any errors or suggestions back to Replit Agent and let it correct them. If you get stuck go back a checkpoint, or start from scratch.
 
-12. Sign up for Zuplo  (Start for Free): https://zuplo.com/
+12. Sign up for Zuplo API Management (Start for Free): https://zuplo.com/
 
 13. Create a new project and navigate to `Start Building | Code | routes.oas.json | OpenAPI`. Then hit `Import OpenAPI`: https://zuplo.com/
 
