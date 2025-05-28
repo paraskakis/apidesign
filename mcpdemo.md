@@ -1,7 +1,10 @@
 1. Ensure node.js is installed by opening a terminal window and typing `node`
-If not, watch the demo first and then come back and install it in one of two ways:
-a. Download & install from https://nodejs.org/
-b. Install nvm with the instructions at https://github.com/nvm-sh/nvm and then install the latest Node version: `nvm install latest`
+
+- If not, watch the demo first and then come back and install it in one of two ways:
+
+- Download & install from https://nodejs.org/
+
+- Install nvm with the instructions at https://github.com/nvm-sh/nvm and then install the latest Node version: `nvm install latest`
 
 2. Make sure you have Claude Desktop installed: https://claude.ai/download
 
