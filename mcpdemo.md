@@ -8,45 +8,77 @@
 
 2. Make sure you have Claude Desktop installed: https://claude.ai/download
 
-3. Go to https://www.buildwithlayer.com/ and hit `Build a Demo MCP Server` (you can also sign up if you'd like)
+3. Sign up for Gram at https://www.speakeasy.com/product/gram
 
-4. Navigate to https://www.weather.gov/documentation/services-web-api and hoit the `Specification` tab - inspect the documentation & download https://api.weather.gov/openapi.json to your Desktop
+4. Navigate to https://www.weather.gov/documentation/services-web-api and hit the `Specification` tab - inspect the documentation & download https://api.weather.gov/openapi.json to your Desktop
 
-5. Go back to https://dashboard.buildwithlayer.com/demo upload the OpenAPI file & hit `Generate Tools`
+5. Go back to Gram and upload the OpenAPI file
 
-6. Pick the `alerts_active_area` endpoint and `Add 1 endpoint`
+6. Add/Remove Tools as needed
 
-7. Check the box again on the next screen, and hit `Demo MCP Server`
+7. Make the MCP Server public
 
-8. Navigate tot he `Claude` tab and copy the text using the Copy button
+8. Copy the `mcpServers` file
 
 9. Open Claude Desktop and hit `Settings|Developer|Edit Config`
 
-10. Edit `claude_desktop_config.json` with your Editor and Save:
+11. Edit `claude_desktop_config.json` with your Editor and Save:
     - Rename the user agent
-    - You can remove the area parameter
+
 Your file should look like this:
 ```
 {
   "mcpServers": {
-    "layerdemo": {
+    "GramWeatheropenapi": {
       "command": "npx",
       "args": [
-        "@buildwithlayer/generator",
-        "demo",
-        "mcp",
-        "<your-layer-key>",
-        "--userAgent=<some name>"
-      ]
+          "mcp-remote",
+          "https://app.getgram.ai/mcp/<Slug>",
+          "--header",
+          "MCP-WEATHER-OPENAPI-USER-AGENT:<User Agent>"
+        ]
     }
   }
-}   
+}
+   
 ```
-11. Restart Claude and ask "What Tools You Can Use"  - yiou should see "Weayher & Alerts"
+12. Restart Claude and ask "What Tools You Can Use"  - you should see "Weather & Alerts"
 
 12. Now prompt Claude "Give me the active weather alerts for area CA"
-You should see a confirmation dialog for tool use, accept it and obseve the response plus Claude's interpretation of it!
+You should see a confirmation dialog for tool use, accept it, and observe the response plus Claude's interpretation of it!
 
-Feel free to try any other API using the same steps above.
+13. Go back to Gram and copy the MCP Server URL
 
-The recording will be available at https://maven.com/p/ec0698/build-ai-ready-ap-is-with-mcp
+14. Upload and set up the server to Registry such as https://mcp.so/submit
+
+15. Alternatively, try https://zuplo.com/
+
+16. Sign Up & Create a New Empty Project
+
+17. Navigate to `Code` | `routes.oas.json` and Upload your OpenAPI
+
+18. In the Route Designer, add an MCO Server
+
+19. Edit the path and make it `/mcp`
+
+20. Drop down `OpenAPI Files` and choose `./config/routes.oas.json`
+
+21. Hit `Save` on the bottom left - this is important to deploy the gateway!
+
+22. Navigate to `Project` and copy the URL
+
+23. Sign Up on https://smithery.ai/ and `Deploy Server`
+
+24. Publish Existing Server via URL
+
+25. Paste in the URL from Ziplo and append `/mcp` - Smithery required this
+
+26. You should get a playground where you can prompt and check out the tools you just published.
+
+27. You can copy the Smithery URL from the `Overview` page and paste it into `claude_desktop_config.json` on your laptop to point Claude to Smithery
+
+28. Restart CLaude and Smithery will prompt you to log in
+
+29. Test Claude has access to the API tools
+
+30. Your MCP server is now public to the world!
