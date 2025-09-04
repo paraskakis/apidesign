@@ -48,6 +48,6 @@
 - Build AI-Ready APIs Course - $100 off: https://maven.com/emmanuel/build-ai-ready-apis?promoCode=MCP
 - Next Topic Poll: https://www.linkedin.com/posts/emmanuelparaskakis_last-week-i-taught-a-well-attended-lightning-activity-7369051586116972546-dTVR
 - Emmanuel Paraskakis on LinkedIn: https://www.linkedin.com/in/emmanuelparaskakis/
-- Slides - TBD
-- Recorded Session: TBD
+- Slides - https://docs.google.com/presentation/d/1RoS48ypl1T0fAokyBV_J__ygA7XWRmYJcQzI3ayGwVA/edit?usp=sharing
+- Recorded Session: Coming on September 11, see https://sched.co/24dui
 
