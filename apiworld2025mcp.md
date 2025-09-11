@@ -31,6 +31,7 @@
 [1] If this step doesn't work because the UI is different, try Speakeasy's Gram with the steps below and come back to step 10 above:
 
 a. Sign up for Gram at https://app.getgram.ai/
+
 b. Hit "Get Started"
 
 c. Upload the OpenAPI file and hit "Continue"
@@ -70,5 +71,5 @@ h. Copy the Hosted URL - and go back to step 10 above
 - Next Topic Poll: https://www.linkedin.com/posts/emmanuelparaskakis_last-week-i-taught-a-well-attended-lightning-activity-7369051586116972546-dTVR
 - Emmanuel Paraskakis on LinkedIn: https://www.linkedin.com/in/emmanuelparaskakis/
 - Slides - https://docs.google.com/presentation/d/1RoS48ypl1T0fAokyBV_J__ygA7XWRmYJcQzI3ayGwVA/edit?usp=sharing
-- Recorded Session: Coming on September 11, see https://sched.co/24dui
+- Virtual Session: Coming on September 11, see https://sched.co/24dui (recording TBD)
 
