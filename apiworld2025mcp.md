@@ -29,14 +29,22 @@
 25. You should see a playground where you can prompt and check out the tools you just published.
 
 [1] If this step doesn't work because the UI is different, try Speakeasy's Gram with the steps below and come back to step 10 above:
+
 a. Sign up for Gram at https://app.getgram.ai/
 b. Hit "Get Started"
-c. Upload the OpenAPI file and hit Continue
-d. Name the API, observe the tools generated and hit Continue again
-e. Accept the default MPC Server Slug name and hit Continue
-f. Make the MCP Server public by clicking on the PRIVATE button (scroll down), then toggling the Server Privacy switch
-g. Navigate to the MCP option on the left, click on the three dots (⋮) then select MCP Settings
+
+c. Upload the OpenAPI file and hit "Continue"
+
+d. Name the API, observe the tools generated and hit "Continue" again
+
+e. Accept the default MPC Server Slug name and hit "Continue"
+
+f. Make the MCP Server public by clicking on the "PRIVATE" button (scroll down), then toggling the Server Privacy switch
+
+g. Navigate to the MCP option on the left, click on the three dots (⋮) then select "MCP Settings"
+
 h. Copy the Hosted URL - and go back to step 10 above
+
 (Note you don't need to append `/mcp` if using Gram)
 
 ## Tools
