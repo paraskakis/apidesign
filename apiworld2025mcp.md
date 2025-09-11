@@ -35,6 +35,8 @@
 - FastMCP: https://gofastmcp.com/
 - MCP Inspector: https://modelcontextprotocol.io/legacy/tools/inspector
 - OpenAI Playground: https://platform.openai.com/chat/edit
+- MCP Community Registry: https://blog.modelcontextprotocol.io/posts/2025-09-08-mcp-registry-preview/
+- MCP in ChatGPT: https://platform.openai.com/docs/mcp
 
 ## Links
 - Design APIs for AI: https://maven.com/p/d4116d/ai-agents-are-coming-for-your-api-are-you-ready
