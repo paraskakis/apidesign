@@ -8,13 +8,13 @@
 4. Navigate to Code | routes.oas.json and Upload your OpenAPI
 5. In the Route Designer, add an MCO Server
 6. Edit the path and make it /mcp
-7. Drop down OpenAPI Files and choose ./config/routes.oas.json
+7. Drop down OpenAPI Files and choose ./config/routes.oas.json [1]
 8. Hit Save on the bottom left - this is important to deploy the gateway!
 9. Navigate to Project and copy the URL
 10. Open Claude at https://claude.ai/new
 11. Hit Search & Tools & Manage Connectors
 12. Add Custom Connector
-13. Name the MCP Server and enter the URL you copied (don't forget to append `/mcp`)
+13. Name the MCP Server and enter the URL you copied (If you are using Zuplo: don't forget to append `/mcp`)
 14. Trust & Add the connector
 15. The MCP Server is now ready to use!
 16. Make sure there are no errors and prompt Claude: "What Tools Can You Use?"
@@ -25,8 +25,19 @@
 21. Sign Up on Smithery: https://smithery.ai/
 22. Hit Deploy Server
 23. Publish Existing Server via URL
-24. Paste in the URL from Zuplo and append `/mcp` - Smithery requires this
+24. Paste in the URL. (If you are using Zuplo: don't forget to append `/mcp`)
 25. You should see a playground where you can prompt and check out the tools you just published.
+
+[1] If this step doesn't work because the UI is different, try Speakeasy's Gram with the steps below and come back to step 10 above:
+a. Sign up for Gram at https://app.getgram.ai/
+b. Hit "Get Started"
+c. Upload the OpenAPI file and hit Continue
+d. Name the API, observe the tools generated and hit Continue again
+e. Accept the default MPC Server Slug name and hit Continue
+f. Make the MCP Server public by clicking on the PRIVATE button (scroll down), then toggling the Server Privacy switch
+g. Navigate to the MCP option on the left, click on the three dots (⋮) then select MCP Settings
+h. Copy the Hosted URL - and go back to step 10 above
+(Note you don't need to append `/mcp` if using Gram)
 
 ## Tools
 - Goose: https://block.github.io/goose/docs/quickstart/
