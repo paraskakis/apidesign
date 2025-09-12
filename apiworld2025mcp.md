@@ -70,6 +70,6 @@ h. Copy the Hosted URL - and go back to step 10 above
 - Build AI-Ready APIs Course - $100 off: https://maven.com/emmanuel/build-ai-ready-apis?promoCode=MCP
 - Next Topic Poll: https://www.linkedin.com/posts/emmanuelparaskakis_last-week-i-taught-a-well-attended-lightning-activity-7369051586116972546-dTVR
 - Emmanuel Paraskakis on LinkedIn: https://www.linkedin.com/in/emmanuelparaskakis/
-- Slides - https://docs.google.com/presentation/d/1RoS48ypl1T0fAokyBV_J__ygA7XWRmYJcQzI3ayGwVA/edit?usp=sharing
+- Slides - https://docs.google.com/presentation/d/1iH1eEPzwMskgvTwN4IARiTi6yqgiJq8kmlK1yj12014/edit?usp=sharing
 - Virtual Session: Coming on September 11, see https://sched.co/24dui (recording TBD)
 
