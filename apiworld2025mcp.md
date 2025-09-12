@@ -6,8 +6,8 @@
 2. Go to https://zuplo.com/ - Start Free
 3. Sign Up & Create a New Empty Project
 4. Navigate to Code | routes.oas.json and Upload your OpenAPI
-5. In the Route Designer, add an MCO Server
-6. Edit the path and make it /mcp
+5. In the Route Designer, add an MCP Server
+6. Edit the path and make it `/mcp`
 7. Drop down OpenAPI Files and choose ./config/routes.oas.json [1]
 8. Hit Save on the bottom left - this is important to deploy the gateway!
 9. Navigate to Project and copy the URL
@@ -21,7 +21,7 @@
 17. Note weather tools
 18. Prompt: "Give me the weather alerts for California"
 19. Hit Allow
-20. Note weather alerts coming from MCP Server
+20. Note weather alerts coming from the MCP Server
 21. Sign Up on Smithery: https://smithery.ai/
 22. Hit Deploy Server
 23. Publish Existing Server via URL
