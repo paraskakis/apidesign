@@ -30,7 +30,7 @@
 
 [1] If this step doesn't work because the UI is different, try Speakeasy's Gram with the steps below and come back to step 10 above:
 
-a. Sign up for Gram at https://app.getgram.ai/
+a. Sign up for Gram at  https://www.speakeasy.com/product/gram
 
 b. Hit "Get Started"
 
