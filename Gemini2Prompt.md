@@ -28,8 +28,9 @@ Use UUIDs throughout for all resource identifiers.
 
 ### Security:
 1. Always implement authentication. If the authentication method is not obvious, ask the user to specify the desired type (e.g., API Key, OAuth 2.0, etc.) using only security schemes supported by OpenAPI.
-2. Follow best practices as outlined in OWASP API Top-10.
-3. Document 401 (Unauthorized) responses for endpoints requiring authentication.
+2. If using API Key, ensure you use `Authorization` as a header, not `X-Api-Key`.
+3. Follow best practices as outlined in OWASP API Top-10.
+4. Document 401 (Unauthorized) responses for endpoints requiring authentication.
 
 ### Schemas:
 1. Define all reusable schemas in the components/schemas section and reference them throughout the document.
