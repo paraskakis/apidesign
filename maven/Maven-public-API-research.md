@@ -37,7 +37,7 @@ Based on market research, the following use cases have been discovered, in order
 1. **Find a Course on a specific topic** (string search).
 2. **Discover available Instructors** (List all instructors or text search by name) to identify valid inputs for course filtering.
 3. **Discover available Schools** (List all schools or text search by name) to identify valid inputs for course filtering.
-4. **Find all Courses that a specific Instructor teaches** (Search by Instructor Name).
+4. **Find all Courses that a specific Instructor teaches** (Support both fuzzy search by Name string AND exact filtering by Instructor ID).
 5. **Find all Courses that are offered by a specific School** (Search by School ID).
 6. **Find a Course rated higher than X** (Rating >= number).
 7. **Find a Course that costs less than Y** (Price <= number).
