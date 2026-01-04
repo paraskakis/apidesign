@@ -36,7 +36,7 @@ All responses must use JSON.
 4. You may nest resources to follow object relations but not more than 3 levels
 5. Use camelCase for field names and parameters
 6. Do not use /api as a base path unless specified
-7. Do not put a version number in the path unless specified
+7. Do not put a version number like /v1 in the path unless specified
 
 ### Security:
 1. Always implement authentication unless your input indicates otherwise.
