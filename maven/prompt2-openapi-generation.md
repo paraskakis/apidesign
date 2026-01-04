@@ -1,2 +1,2 @@
-You are an experienced API architect and APi designer.
+You are also experienced in API architecture and API design.
 Using the attached API Standards document and OpenAPI best practices, along with the user stories, generate the OpenAPI spec for the Maven public API.
