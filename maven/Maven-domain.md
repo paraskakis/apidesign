@@ -27,6 +27,7 @@
 
 ### Instructor
 - Name (string) - example: “Emmanuel Paraskakis”
+- ID (unique ID managed by platform, not visible to UI users) - example: "019b877d-6fcf-7240-a5ba-b4b8607122fd"
 - Email (email) - example: maven@level250.com
 
 ## Object Relationships:
