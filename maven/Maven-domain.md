@@ -27,6 +27,7 @@
 
 ### Instructor
 - Name (string) - example: “Emmanuel Paraskakis”
+- ID (string) - example: “emmanuelparaskakis”
 - Email (email) - example: maven@level250.com
 
 ## Object Relationships:
