@@ -34,13 +34,16 @@ Benefits from increased sales, customer satisfaction, and engagement. The API co
 
 Based on market research, the following use cases have been discovered, in order of popularity:
 
-1. **Find a Course on a specific topic**: String search in Course Name.
+1. **Discover available Schools**: List all schools or text search by School Name to identify valid inputs for course filtering.
 2. **Discover available Instructors**: List all instructors or text search by Instructor Name to identify valid inputs for course filtering.
-3. **Discover available Schools**: List all schools or text search by School Name to identify valid inputs for course filtering.
-4. **Find all Courses that a specific Instructor teaches**: List all courses by Instructor Name to find courses where a specific instructor is teaching.
-5. **Find all Courses that are offered by a specific School**: Search by School ID.
-6. **Find a Course rated higher than X**: Rating >= number.
-7. **Find a Course that costs less than Y**: Price <= number.
-8. **Find a Course that has an open Cohort between two dates**: Start Date >= date <= End Date.
-9. **An arbitrary combination of all criteria**: Complex query combining multiple filters.
-10. **Public Access**: All data must be accessible without authentication to ensure ease of use for students and tools.
+3. **Find all Courses that satisfy search criteria**: Complex query combining multiple filters.
+- Include all Courses on a specific topic: String search on Course Name.
+- Include all courses taught by a specific Instructor by Instructor Name.
+- Include all Courses that are offered by a specific School: Search by School ID.
+- Include all Coursesrated higher than X: Rating >= number.
+- Include all Courses that cost less than Y: Price <= number.
+- Include all Courses that have an open Cohort between two dates: Start Date >= date <= End Date.
+4. **Get details for a specific Course** including open Cohorts
+5. **Get details for a specific Cohort**
+
+**Note Public Access**: All data must be accessible without authentication to ensure ease of use for students and tools.
