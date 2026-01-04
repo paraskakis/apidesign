@@ -34,13 +34,13 @@ Benefits from increased sales, customer satisfaction, and engagement. The API co
 
 Based on market research, the following use cases have been discovered, in order of popularity:
 
-1. **Find a Course on a specific topic** (string search).
-2. **Discover available Instructors** (List all instructors or text search by name) to identify valid inputs for course filtering.
-3. **Discover available Schools** (List all schools or text search by name) to identify valid inputs for course filtering.
-4. **Find all Courses that a specific Instructor teaches** (Support both fuzzy search by Name string AND exact filtering by Instructor ID).
-5. **Find all Courses that are offered by a specific School** (Search by School ID).
-6. **Find a Course rated higher than X** (Rating >= number).
-7. **Find a Course that costs less than Y** (Price <= number).
-8. **Find a Course that has an open Cohort between two dates** (Start Date >= date <= End Date).
-9. **An arbitrary combination of all criteria** (complex query).
-10. **Public Access:** All data must be accessible without authentication to ensure ease of use for students and tools.
+1. **Find a Course on a specific topic**: String search in Course Name.
+2. **Discover available Instructors**: List all instructors or text search by Instructor Name to identify valid inputs for course filtering.
+3. **Discover available Schools**: List all schools or text search by School Name to identify valid inputs for course filtering.
+4. **Find all Courses that a specific Instructor teaches**: Support both text search by Instructor Name AND exact filtering by Instructor ID.
+5. **Find all Courses that are offered by a specific School**: Search by School ID.
+6. **Find a Course rated higher than X**: Rating >= number.
+7. **Find a Course that costs less than Y**: Price <= number.
+8. **Find a Course that has an open Cohort between two dates**: Start Date >= date <= End Date.
+9. **An arbitrary combination of all criteria**: Complex query combining multiple filters.
+10. **Public Access**: All data must be accessible without authentication to ensure ease of use for students and tools.
