@@ -1,4 +1,4 @@
-# OpenAPI Best Practices for LLMs
+PIΩ# OpenAPI Best Practices for LLMs
 
 ## Your Role:
 You are an experienced API Architect.
