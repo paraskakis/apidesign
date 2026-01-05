@@ -1,0 +1,789 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Maven Public API",
+    "version": "1.0.0",
+    "description": "Public API for Maven.com to allow students and L&D professionals to discover schools, instructors, and courses. This API provides access to public directory information including course details and cohort schedules.",
+    "contact": {
+      "name": "Maven API Support",
+      "url": "https://maven.com/support",
+      "email": "support@maven.com"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://api.maven.com/v1",
+      "description": "Production Server"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Schools",
+      "description": "Operations related to Schools and their metadata."
+    },
+    {
+      "name": "Instructors",
+      "description": "Operations related to Instructors."
+    },
+    {
+      "name": "Courses",
+      "description": "Operations for searching and retrieving Course and Cohort information."
+    }
+  ],
+  "paths": {
+    "/schools": {
+      "get": {
+        "tags": [
+          "Schools"
+        ],
+        "summary": "List and search schools",
+        "description": "Retrieves a paginated list of schools. Use the search parameter to filter by school name.",
+        "operationId": "getSchools",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/SearchParam"
+          },
+          {
+            "$ref": "#/components/parameters/LimitParam"
+          },
+          {
+            "$ref": "#/components/parameters/OffsetParam"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of schools matching the criteria.",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "$ref": "#/components/headers/X-RateLimit-Limit"
+              },
+              "X-RateLimit-Remaining": {
+                "$ref": "#/components/headers/X-RateLimit-Remaining"
+              },
+              "Retry-After": {
+                "$ref": "#/components/headers/Retry-After"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/School"
+                  }
+                },
+                "example": [
+                  {
+                    "name": "Emmanuel Paraskakis",
+                    "id": "emmanuel"
+                  }
+                ]
+              }
+            }
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      }
+    },
+    "/instructors": {
+      "get": {
+        "tags": [
+          "Instructors"
+        ],
+        "summary": "List and search instructors",
+        "description": "Retrieves a paginated list of instructors. Use the search parameter to find specific instructors by name.",
+        "operationId": "getInstructors",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/SearchParam"
+          },
+          {
+            "$ref": "#/components/parameters/LimitParam"
+          },
+          {
+            "$ref": "#/components/parameters/OffsetParam"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of instructors matching the criteria.",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "$ref": "#/components/headers/X-RateLimit-Limit"
+              },
+              "X-RateLimit-Remaining": {
+                "$ref": "#/components/headers/X-RateLimit-Remaining"
+              },
+              "Retry-After": {
+                "$ref": "#/components/headers/Retry-After"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Instructor"
+                  }
+                },
+                "example": [
+                  {
+                    "name": "Emmanuel Paraskakis",
+                    "email": "maven@level250.com"
+                  }
+                ]
+              }
+            }
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      }
+    },
+    "/courses": {
+      "get": {
+        "tags": [
+          "Courses"
+        ],
+        "summary": "Search for courses",
+        "description": "Search for courses using complex filters including price, rating, dates, and associations (school/instructor).",
+        "operationId": "getCourses",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/SearchParam"
+          },
+          {
+            "name": "schoolId",
+            "in": "query",
+            "description": "Filter by the unique ID of the school.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "emmanuel"
+          },
+          {
+            "name": "instructorName",
+            "in": "query",
+            "description": "Filter by the full name of the instructor.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "Emmanuel Paraskakis"
+          },
+          {
+            "name": "minRating",
+            "in": "query",
+            "description": "Filter for courses with a rating greater than or equal to this value (1.0 - 5.0).",
+            "schema": {
+              "type": "number",
+              "minimum": 1,
+              "maximum": 5
+            },
+            "example": 4.5
+          },
+          {
+            "name": "maxPrice",
+            "in": "query",
+            "description": "Filter for courses with a price less than or equal to this value (USD).",
+            "schema": {
+              "type": "number",
+              "minimum": 0
+            },
+            "example": 1000.00
+          },
+          {
+            "name": "minDate",
+            "in": "query",
+            "description": "Filter for courses with cohorts starting on or after this date (ISO 8601).",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "example": "2026-01-01T00:00:00Z"
+          },
+          {
+            "name": "maxDate",
+            "in": "query",
+            "description": "Filter for courses with cohorts starting on or before this date (ISO 8601).",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "example": "2026-12-31T23:59:59Z"
+          },
+          {
+            "$ref": "#/components/parameters/LimitParam"
+          },
+          {
+            "$ref": "#/components/parameters/OffsetParam"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of courses matching the search criteria.",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "$ref": "#/components/headers/X-RateLimit-Limit"
+              },
+              "X-RateLimit-Remaining": {
+                "$ref": "#/components/headers/X-RateLimit-Remaining"
+              },
+              "Retry-After": {
+                "$ref": "#/components/headers/Retry-After"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Course"
+                  }
+                },
+                "example": [
+                  {
+                    "name": "API Fundamentals for Product Managers",
+                    "id": "api-pm-fundamentals",
+                    "rating": 4.5,
+                    "price": 999.00,
+                    "landingPageUrl": "https://maven.com/emmanuel/api-pm-fundamentals"
+                  }
+                ]
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      }
+    },
+    "/courses/{courseId}": {
+      "get": {
+        "tags": [
+          "Courses"
+        ],
+        "summary": "Get course details",
+        "description": "Retrieves detailed information for a specific course, including a list of open cohorts.",
+        "operationId": "getCourseById",
+        "parameters": [
+          {
+            "name": "courseId",
+            "in": "path",
+            "description": "The unique identifier of the course.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "api-pm-fundamentals"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Detailed course information.",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "$ref": "#/components/headers/X-RateLimit-Limit"
+              },
+              "X-RateLimit-Remaining": {
+                "$ref": "#/components/headers/X-RateLimit-Remaining"
+              },
+              "Retry-After": {
+                "$ref": "#/components/headers/Retry-After"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CourseWithCohorts"
+                },
+                "example": {
+                  "name": "API Fundamentals for Product Managers",
+                  "id": "api-pm-fundamentals",
+                  "rating": 4.5,
+                  "price": 999.00,
+                  "landingPageUrl": "https://maven.com/emmanuel/api-pm-fundamentals",
+                  "cohorts": [
+                    {
+                      "name": "Cohort 6",
+                      "id": 6,
+                      "startDate": "2026-01-08T09:00:00-08:00",
+                      "endDate": "2026-01-17T00:00:00-08:00"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      }
+    },
+    "/courses/{courseId}/cohorts/{cohortId}": {
+      "get": {
+        "tags": [
+          "Courses"
+        ],
+        "summary": "Get cohort details",
+        "description": "Retrieves detailed information for a specific cohort within a course.",
+        "operationId": "getCohortById",
+        "parameters": [
+          {
+            "name": "courseId",
+            "in": "path",
+            "description": "The unique identifier of the course.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "api-pm-fundamentals"
+          },
+          {
+            "name": "cohortId",
+            "in": "path",
+            "description": "The unique sequential identifier of the cohort.",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "example": 6
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Detailed cohort information.",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "$ref": "#/components/headers/X-RateLimit-Limit"
+              },
+              "X-RateLimit-Remaining": {
+                "$ref": "#/components/headers/X-RateLimit-Remaining"
+              },
+              "Retry-After": {
+                "$ref": "#/components/headers/Retry-After"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Cohort"
+                },
+                "example": {
+                  "name": "Cohort 6",
+                  "id": 6,
+                  "startDate": "2026-01-08T09:00:00-08:00",
+                  "endDate": "2026-01-17T00:00:00-08:00"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooManyRequests"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "School": {
+        "type": "object",
+        "description": "Represents an independent school on the Maven platform.",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The display name of the school."
+          },
+          "id": {
+            "type": "string",
+            "description": "Unique string identifier for the school."
+          }
+        },
+        "required": [
+          "name",
+          "id"
+        ],
+        "example": {
+          "name": "Emmanuel Paraskakis",
+          "id": "emmanuel"
+        }
+      },
+      "Instructor": {
+        "type": "object",
+        "description": "Represents an instructor who teaches courses.",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The full name of the instructor."
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "description": "Public contact email for the instructor."
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "example": {
+          "name": "Emmanuel Paraskakis",
+          "email": "maven@level250.com"
+        }
+      },
+      "Cohort": {
+        "type": "object",
+        "description": "A specific scheduled session of a course.",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The name of the cohort (e.g., 'Cohort 6')."
+          },
+          "id": {
+            "type": "integer",
+            "description": "Sequential integer ID of the cohort."
+          },
+          "startDate": {
+            "type": "string",
+            "format": "date-time",
+            "description": "ISO 8601 date-time string indicating when the cohort begins."
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date-time",
+            "description": "ISO 8601 date-time string indicating when the cohort ends."
+          }
+        },
+        "required": [
+          "name",
+          "id",
+          "startDate",
+          "endDate"
+        ],
+        "example": {
+          "name": "Cohort 6",
+          "id": 6,
+          "startDate": "2026-01-08T09:00:00-08:00",
+          "endDate": "2026-01-17T00:00:00-08:00"
+        }
+      },
+      "Course": {
+        "type": "object",
+        "description": "A cohort-based course offered by a school.",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The title of the course."
+          },
+          "id": {
+            "type": "string",
+            "description": "Unique string slug identifier for the course."
+          },
+          "rating": {
+            "type": ["number", "null"],
+            "description": "Average rating of the course (1.0 to 5.0). Null if no ratings.",
+            "minimum": 1,
+            "maximum": 5
+          },
+          "price": {
+            "type": "number",
+            "description": "Cost of the course in USD."
+          },
+          "landingPageUrl": {
+            "type": "string",
+            "format": "uri",
+            "description": "URL to the course landing page on Maven."
+          }
+        },
+        "required": [
+          "name",
+          "id",
+          "price",
+          "landingPageUrl"
+        ],
+        "example": {
+          "name": "API Fundamentals for Product Managers",
+          "id": "api-pm-fundamentals",
+          "rating": 4.5,
+          "price": 999.00,
+          "landingPageUrl": "https://maven.com/emmanuel/api-pm-fundamentals"
+        }
+      },
+      "CourseWithCohorts": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Course"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "cohorts": {
+                "type": "array",
+                "description": "List of available cohorts for this course.",
+                "items": {
+                  "$ref": "#/components/schemas/Cohort"
+                }
+              }
+            },
+            "required": [
+              "cohorts"
+            ]
+          }
+        ],
+        "description": "Detailed course information including available cohorts.",
+        "example": {
+          "name": "API Fundamentals for Product Managers",
+          "id": "api-pm-fundamentals",
+          "rating": 4.5,
+          "price": 999.00,
+          "landingPageUrl": "https://maven.com/emmanuel/api-pm-fundamentals",
+          "cohorts": [
+            {
+              "name": "Cohort 6",
+              "id": 6,
+              "startDate": "2026-01-08T09:00:00-08:00",
+              "endDate": "2026-01-17T00:00:00-08:00"
+            }
+          ]
+        }
+      },
+      "ProblemDetails": {
+        "type": "object",
+        "description": "A standard RFC 9457 problem detail object.",
+        "properties": {
+          "type": {
+            "type": "string",
+            "format": "uri",
+            "description": "A URI reference that identifies the problem type."
+          },
+          "title": {
+            "type": "string",
+            "description": "A short, human-readable summary of the problem type."
+          },
+          "status": {
+            "type": "integer",
+            "description": "The HTTP status code generated by the origin server for this occurrence of the problem."
+          },
+          "detail": {
+            "type": "string",
+            "description": "A human-readable explanation specific to this occurrence of the problem."
+          },
+          "instance": {
+            "type": "string",
+            "format": "uri",
+            "description": "A URI reference that identifies the specific occurrence of the problem."
+          }
+        },
+        "required": [
+          "type",
+          "title",
+          "status"
+        ],
+        "example": {
+          "type": "about:blank",
+          "title": "Not Found",
+          "status": 404,
+          "detail": "The requested course 'unknown-id' was not found."
+        }
+      }
+    },
+    "parameters": {
+      "SearchParam": {
+        "name": "search",
+        "in": "query",
+        "description": "Text search query to filter results by name or description.",
+        "schema": {
+          "type": "string"
+        },
+        "example": "API Design"
+      },
+      "LimitParam": {
+        "name": "limit",
+        "in": "query",
+        "description": "The maximum number of items to return.",
+        "schema": {
+          "type": "integer",
+          "default": 20,
+          "maximum": 100
+        },
+        "example": 20
+      },
+      "OffsetParam": {
+        "name": "offset",
+        "in": "query",
+        "description": "The number of items to skip before starting to collect the result set.",
+        "schema": {
+          "type": "integer",
+          "default": 0,
+          "minimum": 0
+        },
+        "example": 0
+      }
+    },
+    "headers": {
+      "X-RateLimit-Limit": {
+        "description": "The number of allowed requests in the current period.",
+        "schema": {
+          "type": "integer"
+        },
+        "example": 1000
+      },
+      "X-RateLimit-Remaining": {
+        "description": "The number of remaining requests in the current period.",
+        "schema": {
+          "type": "integer"
+        },
+        "example": 998
+      },
+      "Retry-After": {
+        "description": "The number of seconds to wait before making a new request.",
+        "schema": {
+          "type": "integer"
+        },
+        "example": 60
+      }
+    },
+    "responses": {
+      "BadRequest": {
+        "description": "The server cannot or will not process the request due to something that is perceived to be a client error.",
+        "headers": {
+          "X-RateLimit-Limit": {
+            "$ref": "#/components/headers/X-RateLimit-Limit"
+          },
+          "X-RateLimit-Remaining": {
+            "$ref": "#/components/headers/X-RateLimit-Remaining"
+          },
+          "Retry-After": {
+            "$ref": "#/components/headers/Retry-After"
+          }
+        },
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ProblemDetails"
+            },
+            "example": {
+              "type": "about:blank",
+              "title": "Bad Request",
+              "status": 400,
+              "detail": "Invalid query parameter format."
+            }
+          }
+        }
+      },
+      "NotFound": {
+        "description": "The origin server did not find a current representation for the target resource.",
+        "headers": {
+          "X-RateLimit-Limit": {
+            "$ref": "#/components/headers/X-RateLimit-Limit"
+          },
+          "X-RateLimit-Remaining": {
+            "$ref": "#/components/headers/X-RateLimit-Remaining"
+          },
+          "Retry-After": {
+            "$ref": "#/components/headers/Retry-After"
+          }
+        },
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ProblemDetails"
+            },
+            "example": {
+              "type": "about:blank",
+              "title": "Not Found",
+              "status": 404,
+              "detail": "Resource not found."
+            }
+          }
+        }
+      },
+      "TooManyRequests": {
+        "description": "The user has sent too many requests in a given amount of time.",
+        "headers": {
+          "X-RateLimit-Limit": {
+            "$ref": "#/components/headers/X-RateLimit-Limit"
+          },
+          "X-RateLimit-Remaining": {
+            "$ref": "#/components/headers/X-RateLimit-Remaining"
+          },
+          "Retry-After": {
+            "$ref": "#/components/headers/Retry-After"
+          }
+        },
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ProblemDetails"
+            },
+            "example": {
+              "type": "about:blank",
+              "title": "Too Many Requests",
+              "status": 429,
+              "detail": "You have exceeded your rate limit."
+            }
+          }
+        }
+      },
+      "InternalServerError": {
+        "description": "The server encountered an unexpected condition that prevented it from fulfilling the request.",
+        "headers": {
+          "X-RateLimit-Limit": {
+            "$ref": "#/components/headers/X-RateLimit-Limit"
+          },
+          "X-RateLimit-Remaining": {
+            "$ref": "#/components/headers/X-RateLimit-Remaining"
+          },
+          "Retry-After": {
+            "$ref": "#/components/headers/Retry-After"
+          }
+        },
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ProblemDetails"
+            },
+            "example": {
+              "type": "about:blank",
+              "title": "Internal Server Error",
+              "status": 500,
+              "detail": "An unexpected error occurred."
+            }
+          }
+        }
+      }
+    }
+  }
+}
