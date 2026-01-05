@@ -2,7 +2,7 @@
 
 ## Guidelines:
 1. Default to a HTTP REST API unless otherwise specified.
-2. Follow Joshua Bloch’s principles in “ How to Design a Good API and Why it Matters”: https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/32713.pdf
+2. Follow Joshua Bloch’s principles in “How to Design a Good API and Why it Matters”: https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/32713.pdf
    * Characteristics of a good API:
    * Easy to learn
    * Easy to use, even without documentation
