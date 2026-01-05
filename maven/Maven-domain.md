@@ -30,7 +30,7 @@
 - ID (string) - example: “emmanuelparaskakis”
 - Email (email) - example: maven@level250.com
 
-## Object Relationships:
+## Object Relations:
 1. A School offers one or more Courses
 2. A Course has one or more Cohort. Note that Cohorts do not exist independently of Courses and are a child object.
 3. An Instructor teaches one or more Courses
