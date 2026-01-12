@@ -28,9 +28,15 @@ Based on market research, the following use cases have been discovered, in order
 6. Get a list of Students that were enrolled in past Cohorts of a given Course, to potentially understand why they signed up, so that future signups can be improved.
 7. Search for a student by email to see which Cohort or Course they have enrolled for in order to respond to student outreach in a timely and accurate way.
 8. Search Ratings by Student email or by criteria such as Minimum Rating or Maximum Rating to understand who is giving good/bad ratings, to ultimately understand the reasons and improve Courses.
-9. Add or Remove a Student from a Course Waitlist, Dropped Off List or Open Cohort in response to external events, with automation so the Instructor does not need to do this repeatedly in the Maven UI.
+9. Add or Remove a Student from a Course Waitlist, Dropped Off List or Open Cohort in response to external events. **This must support "Upsert" functionality so the Instructor does not need to create student records separately.**
 10. Retrieve sums of net earnings for a given Student by partial email search  over all Cohorts and Courses to understand the lifetime value of a given person or company.
 11. Retrieve sums of net earnings for a given Cohort or Course to understand which Cohorts or Courses are performing well in order to continue and improve earnings success.
 12. For administrative purposes, retrieve all Courses or Cohorts per Instructor or School, filter by Open for Enrollment, In Progress and Past Cohorts.
+
+## Technical Requirements
+**Data Handling (Upsert Logic):**
+When adding a Student to a Cohort or Waitlist (Use Case 9), the API must handle cases where the Student record does not yet exist.
+* **Existing Student:** If the provided email matches an existing Student, enroll them immediately.
+* **New Student:** If the email does not exist, create the Student record "Just-In-Time" using the provided Name and Email, then enroll them immediately.
 
 **Note Secured Access**: All data must be accessible only with Instructor authentication to ensure it stays accurate and secure.
