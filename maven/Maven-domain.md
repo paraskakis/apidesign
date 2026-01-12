@@ -9,13 +9,16 @@
 * A student is identified by their email
 
 ## Data Objects and Properties:
+### **Note on Identifiers:**
+Contrary to accepted API Standards, the School, Course, and Instructor resources use human-readable **Slug IDs**, not UUIDs. Cohorts use sequential integers.
+
 ### School
 - Name (string) - example: “Emmanuel Paraskakis”
-- ID (string) - example: “emmanuel”
+- **ID (slug string)** - Human-readable URL-safe identifier. **Do NOT use UUID.** - example: “emmanuel”
 
 ### Course
 - Name (string) - example: “API Fundamentals for Product Managers”
-- ID (string) - example: “api-pm-fundamentals”
+- **ID (slug string)** - Human-readable URL-safe identifier. **Do NOT use UUID.** - example: “api-pm-fundamentals”
 - Average Rating (integer with one decimal point, 1 to 5) - example: 4.5
 - Price (currency in USD) - example: 999.00
 - Landing Page URL (long form text description and HTML page which includes syllabus, outcomes and other data) - example: https://maven.com/emmanuel/api-pm-fundamentals
@@ -23,7 +26,7 @@
 
 ### Cohort
 - Name (string) - example: “Cohort 6”
-- ID (sequential integer) - example: 6
+- **ID (integer)** - Sequential integer. **Do NOT use UUID.** - example: 6
 - Start Date (date) - example: 01/08/2026 9:00 AM PST
 - End Date (date) - example: 01/17/2026 12:00 AM PST
 - Enrolled Students (array of Student)
@@ -31,7 +34,7 @@
 
 ### Instructor
 - Name (string) - example: “Emmanuel Paraskakis”
-- ID (string) - example: “emmanuelparaskakis”
+- **ID (slug string)** - Human-readable URL-safe identifier. **Do NOT use UUID.** - example: “emmanuelparaskakis”
 - Email (email) - example: "maven@level250.com"
 
 ### Student
