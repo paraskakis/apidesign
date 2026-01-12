@@ -1,0 +1,1 @@
+You are an experienced API Product Manager. I'm creating a partner API for Maven.com. Use my research, domain, and standards files attached and come up with short user stories for the partner API - just resources, methods, and parameters for now.
