@@ -44,6 +44,7 @@ All responses must use JSON.
 
 ### Properties:
 1. Use camelCase for field names and parameters.
+2. If possible, use enums over strings
 
 ### Security:
 1. Always implement authentication unless your input indicates otherwise.
