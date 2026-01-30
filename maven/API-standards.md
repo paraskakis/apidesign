@@ -51,6 +51,8 @@ All responses must use JSON.
 3. If using API Key, ensure you use `Authorization` as a header, not `X-Api-Key`.
 4. Follow best practices as outlined in OWASP API Top-10 - https://owasp.org/www-project-api-security/
 5. Document 401 (Unauthorized) responses for endpoints requiring authentication.
+6. Prefer API Key over Bearer authentication if there are no further instructions.
+7. Never use Basic Auth
 
 ### IDs:
 Use UUIDs throughout for all resource identifiers, unless otherwise specified for each resource in requirements - Follow https://www.rfc-editor.org/rfc/rfc9562.html
