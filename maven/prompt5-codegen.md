@@ -1,5 +1,6 @@
-Implement the API server described in the attached OpenAPI file.
-Follow the OpenAPI file very closely.
-Make sure you use the authentication specified in the OpenAPI file.
-Do not implement UI, persistence, logging, analytics, or caching unless specifically instructed.
+Implement the API server described in the attached OpenAPI file:
+- Follow the OpenAPI file very closely.
+- Make sure you use the authentication specified in the OpenAPI file.
+- Do not add unspecified items in the path like `/api` or versions like `/v1`, unless they are present in the OpenAPI file.
+- Do not implement UI, persistence, logging, analytics, or caching unless specifically instructed.
 Keep the server as simple as possible.
