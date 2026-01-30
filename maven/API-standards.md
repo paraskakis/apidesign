@@ -21,7 +21,7 @@ https://www.rfc-editor.org/rfc/rfc9113
 https://www.rfc-editor.org/rfc/rfc9114
 
 ### Style Guide:
-Follow API industry accepted standards, conventions and best practices
+Follow API industry accepted standards, conventions and best practices.
 
 ### Requests:
 All requests must use JSON.
@@ -32,11 +32,18 @@ All responses must use JSON.
 ### Naming Conventions:
 1. Use clear naming and employ suggestions from schema repositories such as schema.org, GS1, ISO, and similar vertical industry standards.
 2. Follow industry standards, including RFCs, IANA, and JSON Schema for naming and definitions.
-3. Pluralize resource names.
-4. You may nest resources to follow object relations but not more than 3 levels
-5. Use camelCase for field names and parameters
-6. Do not use /api as a base path unless specified
-7. Do not put a version number like /v1 in the path unless specified
+3. Avoid abbreviations except where they are very well known - for example, `ID` is ok and preferred over `identifier`.
+
+### Paths:
+1. Do not use /api as a base path unless specified.
+2. Do not put a version number like /v1 in the path unless specified.
+
+### Resources:
+1. Pluralize resource names.
+2. You should nest resources to follow object relations, but not more than 3 levels. If an object is a child object of another, it should be nested - for example, `projects/{id}/tasks`.
+
+### Properties:
+1. Use camelCase for field names and parameters.
 
 ### Security:
 1. Always implement authentication unless your input indicates otherwise.
@@ -52,7 +59,7 @@ Use UUIDs throughout for all resource identifiers, unless otherwise specified fo
 Use ISO 8601 Dates - Follow https://datatracker.ietf.org/doc/html/rfc3339 &  https://datatracker.ietf.org/doc/html/rfc9557
 
 ### Parameters:
-1. Use pagination for all collection endpoints. Use offset and limit unless otherwise specified
+1. Use pagination for all collection endpoints. Use offset and limit unless otherwise specified.
 
 ### Errors:
 1. Document all possible error conditions.
