@@ -47,7 +47,7 @@ All responses must use JSON.
 2. If possible, use enums over strings.
 
 ### Query Parameters:
-1. Use lowercase and don;t depend on casing.
+1. Use lowercase and don't depend on casing.
 
 ### Security:
 1. Always implement authentication unless your input indicates otherwise.
