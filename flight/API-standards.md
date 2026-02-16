@@ -43,8 +43,11 @@ All responses must use JSON.
 2. You should nest resources to follow object relations, but not more than 3 levels. If an object is a child object of another, it should be nested - for example, `projects/{id}/tasks`.
 
 ### Properties:
-1. Use camelCase for field names and parameters.
-2. If possible, use enums over strings
+1. Use camelCase for field names.
+2. If possible, use enums over strings.
+
+### Query Parameters:
+1. Use lowercase and don;t depend on casing.
 
 ### Security:
 1. Always implement authentication unless your input indicates otherwise.
