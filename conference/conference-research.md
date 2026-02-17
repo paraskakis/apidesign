@@ -24,6 +24,8 @@
 
 ### Industry
 * Open access enables third-party apps (schedule builders, digital signage, networking tools) that improve the overall experience
+* Happy attendees are loyal to conference and come back
+* Fewer inquiries to conference staff and less frustration
 
 ## Use Cases
 
