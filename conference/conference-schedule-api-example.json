@@ -1,0 +1,986 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Conference Schedule API",
+    "version": "1.0.0",
+    "description": "Public API for browsing conference tracks, talks, and speaker profiles. All endpoints are publicly accessible without authentication.",
+    "contact": {
+      "name": "Conference Schedule Support",
+      "url": "https://conference.example.com/support",
+      "email": "api@conference.example.com"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://api.conference.example.com",
+      "description": "Production server"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Tracks",
+      "description": "Thematic groupings of conference talks (e.g., API Design, AI/ML)."
+    },
+    {
+      "name": "Talks",
+      "description": "Individual sessions — keynotes, talks, workshops, and panels — scheduled at the conference."
+    },
+    {
+      "name": "Speakers",
+      "description": "People presenting at the conference."
+    }
+  ],
+  "paths": {
+    "/tracks": {
+      "get": {
+        "tags": ["Tracks"],
+        "summary": "List all tracks",
+        "operationId": "listTracks",
+        "description": "Returns a paginated list of all conference tracks. Tracks are thematic groupings such as 'API Design' or 'AI/ML'.",
+        "parameters": [
+          { "$ref": "#/components/parameters/offset" },
+          { "$ref": "#/components/parameters/limit" }
+        ],
+        "responses": {
+          "200": {
+            "description": "A paginated list of tracks.",
+            "headers": {
+              "X-RateLimit-Limit": { "$ref": "#/components/headers/X-RateLimit-Limit" },
+              "X-RateLimit-Remaining": { "$ref": "#/components/headers/X-RateLimit-Remaining" },
+              "Retry-After": { "$ref": "#/components/headers/Retry-After" }
+            },
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/TrackList" }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests.",
+            "headers": {
+              "Retry-After": { "$ref": "#/components/headers/Retry-After" }
+            },
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Problem" },
+                "example": {
+                  "type": "https://conference.example.com/errors/rate-limit-exceeded",
+                  "title": "Too Many Requests",
+                  "status": 429,
+                  "detail": "You have exceeded the rate limit. Please wait before retrying."
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Problem" },
+                "example": {
+                  "type": "https://conference.example.com/errors/internal-error",
+                  "title": "Internal Server Error",
+                  "status": 500,
+                  "detail": "An unexpected error occurred. Please try again later."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tracks/{trackId}": {
+      "get": {
+        "tags": ["Tracks"],
+        "summary": "Get a track",
+        "operationId": "getTrack",
+        "description": "Returns the details of a single conference track by its unique identifier.",
+        "parameters": [
+          { "$ref": "#/components/parameters/trackId" }
+        ],
+        "responses": {
+          "200": {
+            "description": "The requested track.",
+            "headers": {
+              "X-RateLimit-Limit": { "$ref": "#/components/headers/X-RateLimit-Limit" },
+              "X-RateLimit-Remaining": { "$ref": "#/components/headers/X-RateLimit-Remaining" },
+              "Retry-After": { "$ref": "#/components/headers/Retry-After" }
+            },
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Track" }
+              }
+            }
+          },
+          "404": {
+            "description": "Track not found.",
+            "headers": {
+              "X-RateLimit-Limit": { "$ref": "#/components/headers/X-RateLimit-Limit" },
+              "X-RateLimit-Remaining": { "$ref": "#/components/headers/X-RateLimit-Remaining" }
+            },
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Problem" },
+                "example": {
+                  "type": "https://conference.example.com/errors/not-found",
+                  "title": "Not Found",
+                  "status": 404,
+                  "detail": "Track with ID 'b3d1c2e4-1234-5678-abcd-ef0123456789' was not found."
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests.",
+            "headers": {
+              "Retry-After": { "$ref": "#/components/headers/Retry-After" }
+            },
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Problem" }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Problem" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tracks/{trackId}/talks": {
+      "get": {
+        "tags": ["Tracks", "Talks"],
+        "summary": "List talks in a track",
+        "operationId": "listTalksByTrack",
+        "description": "Returns a paginated list of talks belonging to a specific track. Optionally filter by talk format or date.",
+        "parameters": [
+          { "$ref": "#/components/parameters/trackId" },
+          { "$ref": "#/components/parameters/offset" },
+          { "$ref": "#/components/parameters/limit" },
+          { "$ref": "#/components/parameters/formatFilter" },
+          { "$ref": "#/components/parameters/dateFilter" }
+        ],
+        "responses": {
+          "200": {
+            "description": "A paginated list of talks in the specified track.",
+            "headers": {
+              "X-RateLimit-Limit": { "$ref": "#/components/headers/X-RateLimit-Limit" },
+              "X-RateLimit-Remaining": { "$ref": "#/components/headers/X-RateLimit-Remaining" },
+              "Retry-After": { "$ref": "#/components/headers/Retry-After" }
+            },
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/TalkList" }
+              }
+            }
+          },
+          "404": {
+            "description": "Track not found.",
+            "headers": {
+              "X-RateLimit-Limit": { "$ref": "#/components/headers/X-RateLimit-Limit" },
+              "X-RateLimit-Remaining": { "$ref": "#/components/headers/X-RateLimit-Remaining" }
+            },
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Problem" },
+                "example": {
+                  "type": "https://conference.example.com/errors/not-found",
+                  "title": "Not Found",
+                  "status": 404,
+                  "detail": "Track with ID 'b3d1c2e4-1234-5678-abcd-ef0123456789' was not found."
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests.",
+            "headers": {
+              "Retry-After": { "$ref": "#/components/headers/Retry-After" }
+            },
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Problem" }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Problem" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/talks": {
+      "get": {
+        "tags": ["Talks"],
+        "summary": "List all talks",
+        "operationId": "listTalks",
+        "description": "Returns a paginated list of all conference talks across all tracks. Supports filtering by format, date, and track.",
+        "parameters": [
+          { "$ref": "#/components/parameters/offset" },
+          { "$ref": "#/components/parameters/limit" },
+          { "$ref": "#/components/parameters/formatFilter" },
+          { "$ref": "#/components/parameters/dateFilter" },
+          { "$ref": "#/components/parameters/trackIdFilter" }
+        ],
+        "responses": {
+          "200": {
+            "description": "A paginated list of talks.",
+            "headers": {
+              "X-RateLimit-Limit": { "$ref": "#/components/headers/X-RateLimit-Limit" },
+              "X-RateLimit-Remaining": { "$ref": "#/components/headers/X-RateLimit-Remaining" },
+              "Retry-After": { "$ref": "#/components/headers/Retry-After" }
+            },
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/TalkList" }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests.",
+            "headers": {
+              "Retry-After": { "$ref": "#/components/headers/Retry-After" }
+            },
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Problem" }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Problem" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/talks/{talkId}": {
+      "get": {
+        "tags": ["Talks"],
+        "summary": "Get a talk",
+        "operationId": "getTalk",
+        "description": "Returns the full details of a single talk including its description, format, room, schedule, track, and speakers.",
+        "parameters": [
+          { "$ref": "#/components/parameters/talkId" }
+        ],
+        "responses": {
+          "200": {
+            "description": "The requested talk.",
+            "headers": {
+              "X-RateLimit-Limit": { "$ref": "#/components/headers/X-RateLimit-Limit" },
+              "X-RateLimit-Remaining": { "$ref": "#/components/headers/X-RateLimit-Remaining" },
+              "Retry-After": { "$ref": "#/components/headers/Retry-After" }
+            },
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Talk" }
+              }
+            }
+          },
+          "404": {
+            "description": "Talk not found.",
+            "headers": {
+              "X-RateLimit-Limit": { "$ref": "#/components/headers/X-RateLimit-Limit" },
+              "X-RateLimit-Remaining": { "$ref": "#/components/headers/X-RateLimit-Remaining" }
+            },
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Problem" },
+                "example": {
+                  "type": "https://conference.example.com/errors/not-found",
+                  "title": "Not Found",
+                  "status": 404,
+                  "detail": "Talk with ID 'a1b2c3d4-5678-90ab-cdef-1234567890ab' was not found."
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests.",
+            "headers": {
+              "Retry-After": { "$ref": "#/components/headers/Retry-After" }
+            },
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Problem" }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Problem" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/speakers": {
+      "get": {
+        "tags": ["Speakers"],
+        "summary": "List all speakers",
+        "operationId": "listSpeakers",
+        "description": "Returns a paginated list of all conference speakers. Optionally search by name using a case-insensitive partial match.",
+        "parameters": [
+          { "$ref": "#/components/parameters/offset" },
+          { "$ref": "#/components/parameters/limit" },
+          { "$ref": "#/components/parameters/nameSearch" }
+        ],
+        "responses": {
+          "200": {
+            "description": "A paginated list of speakers.",
+            "headers": {
+              "X-RateLimit-Limit": { "$ref": "#/components/headers/X-RateLimit-Limit" },
+              "X-RateLimit-Remaining": { "$ref": "#/components/headers/X-RateLimit-Remaining" },
+              "Retry-After": { "$ref": "#/components/headers/Retry-After" }
+            },
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/SpeakerList" }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests.",
+            "headers": {
+              "Retry-After": { "$ref": "#/components/headers/Retry-After" }
+            },
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Problem" }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Problem" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/speakers/{speakerId}": {
+      "get": {
+        "tags": ["Speakers"],
+        "summary": "Get a speaker",
+        "operationId": "getSpeaker",
+        "description": "Returns the profile of a single speaker including their name, title, company, and bio.",
+        "parameters": [
+          { "$ref": "#/components/parameters/speakerId" }
+        ],
+        "responses": {
+          "200": {
+            "description": "The requested speaker.",
+            "headers": {
+              "X-RateLimit-Limit": { "$ref": "#/components/headers/X-RateLimit-Limit" },
+              "X-RateLimit-Remaining": { "$ref": "#/components/headers/X-RateLimit-Remaining" },
+              "Retry-After": { "$ref": "#/components/headers/Retry-After" }
+            },
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Speaker" }
+              }
+            }
+          },
+          "404": {
+            "description": "Speaker not found.",
+            "headers": {
+              "X-RateLimit-Limit": { "$ref": "#/components/headers/X-RateLimit-Limit" },
+              "X-RateLimit-Remaining": { "$ref": "#/components/headers/X-RateLimit-Remaining" }
+            },
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Problem" },
+                "example": {
+                  "type": "https://conference.example.com/errors/not-found",
+                  "title": "Not Found",
+                  "status": 404,
+                  "detail": "Speaker with ID 'c9d8e7f6-5432-10ab-cdef-9876543210ab' was not found."
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests.",
+            "headers": {
+              "Retry-After": { "$ref": "#/components/headers/Retry-After" }
+            },
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Problem" }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Problem" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/speakers/{speakerId}/talks": {
+      "get": {
+        "tags": ["Speakers", "Talks"],
+        "summary": "List talks by a speaker",
+        "operationId": "listTalksBySpeaker",
+        "description": "Returns a paginated list of all talks a specific speaker is presenting at the conference.",
+        "parameters": [
+          { "$ref": "#/components/parameters/speakerId" },
+          { "$ref": "#/components/parameters/offset" },
+          { "$ref": "#/components/parameters/limit" }
+        ],
+        "responses": {
+          "200": {
+            "description": "A paginated list of talks for the specified speaker.",
+            "headers": {
+              "X-RateLimit-Limit": { "$ref": "#/components/headers/X-RateLimit-Limit" },
+              "X-RateLimit-Remaining": { "$ref": "#/components/headers/X-RateLimit-Remaining" },
+              "Retry-After": { "$ref": "#/components/headers/Retry-After" }
+            },
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/TalkList" }
+              }
+            }
+          },
+          "404": {
+            "description": "Speaker not found.",
+            "headers": {
+              "X-RateLimit-Limit": { "$ref": "#/components/headers/X-RateLimit-Limit" },
+              "X-RateLimit-Remaining": { "$ref": "#/components/headers/X-RateLimit-Remaining" }
+            },
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Problem" },
+                "example": {
+                  "type": "https://conference.example.com/errors/not-found",
+                  "title": "Not Found",
+                  "status": 404,
+                  "detail": "Speaker with ID 'c9d8e7f6-5432-10ab-cdef-9876543210ab' was not found."
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests.",
+            "headers": {
+              "Retry-After": { "$ref": "#/components/headers/Retry-After" }
+            },
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Problem" }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Problem" }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "UUID": {
+        "description": "A universally unique identifier (UUID v4) as defined in RFC 9562.",
+        "type": "string",
+        "format": "uuid",
+        "example": "a1b2c3d4-5678-90ab-cdef-1234567890ab"
+      },
+      "TalkFormat": {
+        "description": "The presentation format of a talk.",
+        "type": "string",
+        "enum": ["Keynote", "Talk", "Workshop", "Panel"],
+        "example": "Workshop"
+      },
+      "Track": {
+        "description": "A thematic grouping of conference talks, such as 'API Design' or 'AI/ML'.",
+        "type": "object",
+        "required": ["id", "name", "description"],
+        "properties": {
+          "id": {
+            "description": "The unique identifier for the track.",
+            "$ref": "#/components/schemas/UUID"
+          },
+          "name": {
+            "description": "The display name of the track.",
+            "type": "string",
+            "example": "OpenAPI Summit"
+          },
+          "description": {
+            "description": "A short summary of what the track covers.",
+            "type": "string",
+            "example": "Deep dives into OpenAPI specification, tooling, and ecosystem best practices."
+          }
+        },
+        "example": {
+          "id": "b3d1c2e4-1234-5678-abcd-ef0123456789",
+          "name": "OpenAPI Summit",
+          "description": "Deep dives into OpenAPI specification, tooling, and ecosystem best practices."
+        }
+      },
+      "Speaker": {
+        "description": "A person presenting one or more talks at the conference.",
+        "type": "object",
+        "required": ["id", "name", "title"],
+        "properties": {
+          "id": {
+            "description": "The unique identifier for the speaker.",
+            "$ref": "#/components/schemas/UUID"
+          },
+          "name": {
+            "description": "The speaker's full name.",
+            "type": "string",
+            "example": "Emmanuel Paraskakis"
+          },
+          "title": {
+            "description": "The speaker's professional title.",
+            "type": "string",
+            "example": "API Consultant"
+          },
+          "company": {
+            "description": "The company or organization the speaker is affiliated with.",
+            "type": ["string", "null"],
+            "example": "Level 250"
+          },
+          "bio": {
+            "description": "A short biography of the speaker.",
+            "type": ["string", "null"],
+            "example": "API consultant and educator specializing in API strategy and design with 15 years of industry experience."
+          }
+        },
+        "example": {
+          "id": "c9d8e7f6-5432-10ab-cdef-9876543210ab",
+          "name": "Emmanuel Paraskakis",
+          "title": "API Consultant",
+          "company": "Level 250",
+          "bio": "API consultant and educator specializing in API strategy and design with 15 years of industry experience."
+        }
+      },
+      "Talk": {
+        "description": "A scheduled conference session delivered by one or more speakers in a specific room and time slot.",
+        "type": "object",
+        "required": ["id", "title", "description", "format", "room", "trackId", "speakerIds", "date", "startTime", "endTime"],
+        "properties": {
+          "id": {
+            "description": "The unique identifier for the talk.",
+            "$ref": "#/components/schemas/UUID"
+          },
+          "title": {
+            "description": "The title of the talk.",
+            "type": "string",
+            "example": "AI-Driven API Design with OpenAPI"
+          },
+          "description": {
+            "description": "A detailed description of the talk's content and what attendees will learn.",
+            "type": "string",
+            "example": "Explore how large language models and generative AI tools are reshaping the way teams design and iterate on OpenAPI specifications."
+          },
+          "format": {
+            "description": "The presentation format of the talk.",
+            "$ref": "#/components/schemas/TalkFormat"
+          },
+          "room": {
+            "description": "The name of the room or stage where the talk will be held.",
+            "type": "string",
+            "example": "PRO Stage"
+          },
+          "trackId": {
+            "description": "The unique identifier of the track this talk belongs to.",
+            "$ref": "#/components/schemas/UUID"
+          },
+          "speakerIds": {
+            "description": "An array of unique identifiers for the speakers presenting this talk.",
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "$ref": "#/components/schemas/UUID"
+            },
+            "example": ["c9d8e7f6-5432-10ab-cdef-9876543210ab"]
+          },
+          "date": {
+            "description": "The calendar date of the talk in ISO 8601 format (YYYY-MM-DD).",
+            "type": "string",
+            "format": "date",
+            "example": "2026-02-20"
+          },
+          "startTime": {
+            "description": "The UTC date-time when the talk begins, in RFC 3339 format.",
+            "type": "string",
+            "format": "date-time",
+            "example": "2026-02-20T21:30:00Z"
+          },
+          "endTime": {
+            "description": "The UTC date-time when the talk ends, in RFC 3339 format.",
+            "type": "string",
+            "format": "date-time",
+            "example": "2026-02-20T22:15:00Z"
+          }
+        },
+        "example": {
+          "id": "a1b2c3d4-5678-90ab-cdef-1234567890ab",
+          "title": "AI-Driven API Design with OpenAPI",
+          "description": "Explore how large language models and generative AI tools are reshaping the way teams design and iterate on OpenAPI specifications.",
+          "format": "Talk",
+          "room": "PRO Stage",
+          "trackId": "b3d1c2e4-1234-5678-abcd-ef0123456789",
+          "speakerIds": ["c9d8e7f6-5432-10ab-cdef-9876543210ab"],
+          "date": "2026-02-20",
+          "startTime": "2026-02-20T21:30:00Z",
+          "endTime": "2026-02-20T22:15:00Z"
+        }
+      },
+      "Pagination": {
+        "description": "Pagination metadata included in all collection responses.",
+        "type": "object",
+        "required": ["total", "offset", "limit"],
+        "properties": {
+          "total": {
+            "description": "The total number of items matching the query, before pagination.",
+            "type": "integer",
+            "minimum": 0,
+            "example": 42
+          },
+          "offset": {
+            "description": "The zero-based index of the first item in the current page.",
+            "type": "integer",
+            "minimum": 0,
+            "example": 0
+          },
+          "limit": {
+            "description": "The maximum number of items returned per page.",
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100,
+            "example": 20
+          }
+        },
+        "example": {
+          "total": 42,
+          "offset": 0,
+          "limit": 20
+        }
+      },
+      "TrackList": {
+        "description": "A paginated collection of tracks.",
+        "type": "object",
+        "required": ["data", "pagination"],
+        "properties": {
+          "data": {
+            "description": "The array of tracks for the current page.",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Track"
+            }
+          },
+          "pagination": {
+            "description": "Pagination metadata for this response.",
+            "$ref": "#/components/schemas/Pagination"
+          }
+        },
+        "example": {
+          "data": [
+            {
+              "id": "b3d1c2e4-1234-5678-abcd-ef0123456789",
+              "name": "OpenAPI Summit",
+              "description": "Deep dives into OpenAPI specification, tooling, and ecosystem best practices."
+            },
+            {
+              "id": "d4e5f6a7-8901-bcde-f012-3456789abcde",
+              "name": "AI/ML Track",
+              "description": "Sessions covering machine learning, AI agents, and the future of intelligent APIs."
+            }
+          ],
+          "pagination": {
+            "total": 6,
+            "offset": 0,
+            "limit": 20
+          }
+        }
+      },
+      "TalkList": {
+        "description": "A paginated collection of talks.",
+        "type": "object",
+        "required": ["data", "pagination"],
+        "properties": {
+          "data": {
+            "description": "The array of talks for the current page.",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Talk"
+            }
+          },
+          "pagination": {
+            "description": "Pagination metadata for this response.",
+            "$ref": "#/components/schemas/Pagination"
+          }
+        },
+        "example": {
+          "data": [
+            {
+              "id": "a1b2c3d4-5678-90ab-cdef-1234567890ab",
+              "title": "AI-Driven API Design with OpenAPI",
+              "description": "Explore how large language models and generative AI tools are reshaping the way teams design and iterate on OpenAPI specifications.",
+              "format": "Talk",
+              "room": "PRO Stage",
+              "trackId": "b3d1c2e4-1234-5678-abcd-ef0123456789",
+              "speakerIds": ["c9d8e7f6-5432-10ab-cdef-9876543210ab"],
+              "date": "2026-02-20",
+              "startTime": "2026-02-20T21:30:00Z",
+              "endTime": "2026-02-20T22:15:00Z"
+            }
+          ],
+          "pagination": {
+            "total": 1,
+            "offset": 0,
+            "limit": 20
+          }
+        }
+      },
+      "SpeakerList": {
+        "description": "A paginated collection of speakers.",
+        "type": "object",
+        "required": ["data", "pagination"],
+        "properties": {
+          "data": {
+            "description": "The array of speakers for the current page.",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Speaker"
+            }
+          },
+          "pagination": {
+            "description": "Pagination metadata for this response.",
+            "$ref": "#/components/schemas/Pagination"
+          }
+        },
+        "example": {
+          "data": [
+            {
+              "id": "c9d8e7f6-5432-10ab-cdef-9876543210ab",
+              "name": "Emmanuel Paraskakis",
+              "title": "API Consultant",
+              "company": "Level 250",
+              "bio": "API consultant and educator specializing in API strategy and design with 15 years of industry experience."
+            }
+          ],
+          "pagination": {
+            "total": 1,
+            "offset": 0,
+            "limit": 20
+          }
+        }
+      },
+      "OffsetParam": {
+        "description": "Zero-based index of the first item to return for pagination.",
+        "type": "integer",
+        "minimum": 0,
+        "default": 0,
+        "example": 0
+      },
+      "LimitParam": {
+        "description": "Maximum number of items to return per page.",
+        "type": "integer",
+        "minimum": 1,
+        "maximum": 100,
+        "default": 20,
+        "example": 20
+      },
+      "DateParam": {
+        "description": "A calendar date in ISO 8601 format (YYYY-MM-DD).",
+        "type": "string",
+        "format": "date",
+        "example": "2026-02-20"
+      },
+      "NameSearchParam": {
+        "description": "A partial, case-insensitive string to match against speaker names.",
+        "type": "string",
+        "minLength": 1,
+        "example": "emma"
+      },
+      "Problem": {
+        "description": "An error response conforming to RFC 9457 Problem Details for HTTP APIs.",
+        "type": "object",
+        "required": ["type", "title", "status"],
+        "properties": {
+          "type": {
+            "description": "A URI reference that identifies the problem type.",
+            "type": "string",
+            "format": "uri",
+            "example": "https://conference.example.com/errors/not-found"
+          },
+          "title": {
+            "description": "A short, human-readable summary of the problem type.",
+            "type": "string",
+            "example": "Not Found"
+          },
+          "status": {
+            "description": "The HTTP status code for this problem.",
+            "type": "integer",
+            "example": 404
+          },
+          "detail": {
+            "description": "A human-readable explanation specific to this occurrence of the problem.",
+            "type": ["string", "null"],
+            "example": "The requested resource could not be found."
+          },
+          "instance": {
+            "description": "A URI reference that identifies the specific occurrence of the problem.",
+            "type": ["string", "null"],
+            "format": "uri",
+            "example": "https://conference.example.com/errors/instances/abc123"
+          }
+        },
+        "example": {
+          "type": "https://conference.example.com/errors/not-found",
+          "title": "Not Found",
+          "status": 404,
+          "detail": "The requested resource could not be found.",
+          "instance": "https://conference.example.com/errors/instances/abc123"
+        }
+      }
+    },
+    "parameters": {
+      "offset": {
+        "name": "offset",
+        "in": "query",
+        "description": "The zero-based index of the first item to return. Used for pagination.",
+        "required": false,
+        "schema": {
+          "$ref": "#/components/schemas/OffsetParam"
+        }
+      },
+      "limit": {
+        "name": "limit",
+        "in": "query",
+        "description": "The maximum number of items to return per page. Defaults to 20, maximum is 100.",
+        "required": false,
+        "schema": {
+          "$ref": "#/components/schemas/LimitParam"
+        }
+      },
+      "trackId": {
+        "name": "trackId",
+        "in": "path",
+        "description": "The unique identifier (UUID) of the track.",
+        "required": true,
+        "schema": {
+          "$ref": "#/components/schemas/UUID"
+        },
+        "example": "b3d1c2e4-1234-5678-abcd-ef0123456789"
+      },
+      "talkId": {
+        "name": "talkId",
+        "in": "path",
+        "description": "The unique identifier (UUID) of the talk.",
+        "required": true,
+        "schema": {
+          "$ref": "#/components/schemas/UUID"
+        },
+        "example": "a1b2c3d4-5678-90ab-cdef-1234567890ab"
+      },
+      "speakerId": {
+        "name": "speakerId",
+        "in": "path",
+        "description": "The unique identifier (UUID) of the speaker.",
+        "required": true,
+        "schema": {
+          "$ref": "#/components/schemas/UUID"
+        },
+        "example": "c9d8e7f6-5432-10ab-cdef-9876543210ab"
+      },
+      "formatFilter": {
+        "name": "format",
+        "in": "query",
+        "description": "Filter talks by their presentation format. Returns only talks matching the specified format.",
+        "required": false,
+        "schema": {
+          "$ref": "#/components/schemas/TalkFormat"
+        }
+      },
+      "dateFilter": {
+        "name": "date",
+        "in": "query",
+        "description": "Filter talks by date in ISO 8601 format (YYYY-MM-DD). Useful for multi-day conferences.",
+        "required": false,
+        "schema": {
+          "$ref": "#/components/schemas/DateParam"
+        }
+      },
+      "trackIdFilter": {
+        "name": "trackId",
+        "in": "query",
+        "description": "Filter talks by track ID. An alternative to the nested /tracks/{trackId}/talks path, useful for third-party integrations.",
+        "required": false,
+        "schema": {
+          "$ref": "#/components/schemas/UUID"
+        },
+        "example": "b3d1c2e4-1234-5678-abcd-ef0123456789"
+      },
+      "nameSearch": {
+        "name": "name",
+        "in": "query",
+        "description": "Case-insensitive partial match on speaker name. For example, 'emma' matches 'Emmanuel Paraskakis'.",
+        "required": false,
+        "schema": {
+          "$ref": "#/components/schemas/NameSearchParam"
+        }
+      }
+    },
+    "headers": {
+      "X-RateLimit-Limit": {
+        "description": "The maximum number of requests allowed in the current rate limit window.",
+        "schema": {
+          "type": "integer",
+          "example": 1000
+        }
+      },
+      "X-RateLimit-Remaining": {
+        "description": "The number of requests remaining in the current rate limit window.",
+        "schema": {
+          "type": "integer",
+          "example": 995
+        }
+      },
+      "Retry-After": {
+        "description": "The number of seconds to wait before making a new request after being rate-limited.",
+        "schema": {
+          "type": "integer",
+          "example": 60
+        }
+      }
+    }
+  }
+}
