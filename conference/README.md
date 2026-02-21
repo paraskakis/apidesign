@@ -41,7 +41,7 @@ public API.
 
 Example output: [conference-schedule-api-example.json](conference-schedule-api-example.json)
 
-4. **Validate** using deterministic tools: [Swagger Editor](https://editor.swagger.io/), [RateMyOpenAPI](https://ratemyopenapi.com/), [OpenAPI Doctor](https://pb33f.io/doctor/), Spectral, Vacuum. More at [openapi.tools](https://openapi.tools/). For any errors or issues that show up, just paste them to the LLM's chat window and ask it to fix them. Note how our example is a public API with no authentication and most tools will flag that.
+4. **Validate** using deterministic tools: [Swagger Editor](https://editor.swagger.io/), [RateMyOpenAPI](https://ratemyopenapi.com/), [OpenAPI Doctor](https://pb33f.io/doctor/), [Spectral](https://github.com/stoplightio/spectral), [Vacuum](https://github.com/daveshanley/vacuum). More at [openapi.tools](https://openapi.tools/). For any errors or issues that show up, just paste them to the LLM's chat window and ask it to fix them. Note how our example is a public API with no authentication and most tools will flag that.
 
 5. **Mock & test** with [Mockbin](https://mockbin.io/) or build an MVP on Replit to validate with customers. This is the step that separates great API Products from average ones.
 
