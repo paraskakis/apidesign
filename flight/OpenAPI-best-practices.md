@@ -43,6 +43,13 @@ Correct: "headers": { "X-RateLimit-Limit": { "$ref": "#/components/headers/X-Rat
 18. **Absolute URIs:** When using `format: uri` or `format: url`, the `example` value must be a valid absolute URI (e.g., start with `https://`), not a relative path.
 19. **Security Responses:** If an operation is secured (via global `security` or operation-level `security`), you must explicitly document the corresponding error responses (e.g., `401 Unauthorized`, `403 Forbidden`) in the operation's `responses` object.
 20. **Reference Integrity:** Ensure every component defined in `components` is referenced at least once in the document to avoid "unused component" warnings.
+21. **Agent-readiness: Operation descriptions must be semantically complete.** Each operation description should answer these questions without requiring the reader to inspect parameters or response schemas:
+   - **What does it do?** (not just restating the summary — add context)
+   - **What are the key inputs?** For operations with filters or optional parameters, name the available filters and their effect. Don't just say "supports filtering" — say "supports filtering by status (openForEnrollment, inProgress, past) and pagination via offset/limit."
+   - **What does it return?** Name the response shape. "Returns a paginated CourseCollection" is better than "returns courses."
+   - **What are the side effects?** For DELETE and PUT operations, clarify what persists and what doesn't. "Removes the student from the waitlist. Does not delete the student record." An agent will assume deletion is total unless told otherwise.
+   - **Use definitive language.** "At least one filter is required" not "should be provided." Agents treat "should" as optional.
+   Do not restate every parameter's description or schema detail — that creates redundancy and bloat. The goal is enough context in the operation description for an agent to decide whether to call it and what to expect, without reading every `$ref`.
 
 ## Output:
 1. The OpenAPI should be in JSON
